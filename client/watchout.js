@@ -7,24 +7,34 @@ var board = d3.select('body').append('svg')
 
 
 var numEnemies = 12;
+var enemyData = [];
 
+//making data set
 for (var i = 0; i < numEnemies; i ++) {
-  board.append('image')
-  .attr('xlink:href', 'shuriken.jpeg')
-  .attr('height', '50px')
-  .attr('width','50px')
-  .attr('x', Math.random() * 500)
-  .attr('y', Math.random() * 500)
-  .attr('class', 'enemy');  
+  enemyData.push({
+    'xlink:href': 'shuriken.jpeg',
+    'height': '50px',
+    'width':'50px',
+    'x': Math.random() * 500,
+    'y': Math.random() * 500
+  });  
 }
-// var player = board.append('circle')
-//   .attr('r', 75)
-//   .attr('height', '75px')
-//   .attr('width','75px')
-//   .attr('cx', 250)
-//   .attr('cy', 250)
-//   .attr('class', 'player')
-//   .call(d3.behavior.drag().on('drag', move));
+
+//taking data and binding to image elements
+var enemies = board.selectAll('image')
+  .data(enemyData)
+  .enter()
+  .append('image')
+  .attr('xlink:href', 'shuriken.jpeg')
+  .attr('class', 'enemy');
+
+//using data to assign attributes to elements
+var enemyAttributes = enemies
+  .attr('x', function(d) { return d.x; })
+  .attr('y', function(d) { return d.y; })
+  .attr('width', function(d) { return d.width; })
+  .attr('height', function(d) { return d.height; });
+
 
 var ninja = board.append('image')
   .attr('xlink:href', 'ninja.jpeg')
@@ -43,6 +53,17 @@ function move() {
 }
 
 
+
+
+for(var i = 0; i < enemies.length ; i++) {
+  setInterval(function(){
+    // debugger;
+    enemies[i].x = Math.random()*500;
+    enemies[i].y = Math.random()*500;
+  }, 1000);
+
+
+}
 
 
 
