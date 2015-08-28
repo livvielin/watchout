@@ -53,20 +53,19 @@ function move() {
 }
 
 
-
-
-for(var i = 0; i < enemies.length ; i++) {
-  setInterval(function(){
-    // debugger;
-    enemies[i].x = Math.random()*500;
-    enemies[i].y = Math.random()*500;
-  }, 1000);
-
-
+function reposition(enemy) {
+  enemy.transition()
+  .duration(1000)
+  .attr('x', function(d) { return Math.random()*500; })
+  .attr('y', function(d) { return Math.random()*500; })
+  .attr('width', function(d) { return d.width; })
+  .attr('height', function(d) { return d.height; });
 }
 
 
+//call reposition enemies
 
+setInterval( function() {reposition(enemies);}, 1000);
 
 
 
