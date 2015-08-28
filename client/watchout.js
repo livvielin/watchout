@@ -6,7 +6,7 @@ var board = d3.select('body').append('svg')
   .style('border', '5px ridge red');
 
 
-var numEnemies = 12;
+var numEnemies = 2;
 var enemyData = [];
 
 //making data set
@@ -62,11 +62,21 @@ function reposition(enemy) {
   .attr('height', function(d) { return d.height; });
 }
 
-
-//call reposition enemies
-
 setInterval( function() {reposition(enemies);}, 1000);
 
+var checkCollision = function(enemy, ninja) {
+  var radiusSum = parseFloat(enemy.attr('height'))/2 + parseFloat(ninja.attr('height'))/2;
+  var xDiff = parseFloat(enemy.attr('x'))/2 - parseFloat(ninja.attr('x'))/2;
+  var yDiff = parseFloat(enemy.attr('y'))/2 - parseFloat(ninja.attr('y'))/2;
+  var distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+
+  return distance < radiusSum;
+
+};
+
+setInterval( function() { if (checkCollision(enemies, ninja)){
+  console.log('hi');
+}}, 100);
 
 
 
