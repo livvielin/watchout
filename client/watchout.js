@@ -9,6 +9,12 @@ var board = d3.select('body').append('svg')
 var numEnemies = 12;
 
 for (var i = 0; i < numEnemies; i ++) {
-  board.append('circle').attr('cx', Math.random() * 500)
-  .attr('cy', Math.random() * 500).attr('r', 20).attr('class', 'enemy');  
+  board.append('image')
+  .attr('xlink:href', 'shuriken.jpeg')
+  .attr('height', '50px')
+  .attr('width','50px')
+  .attr('x', Math.random() * 500)
+  .attr('y', Math.random() * 500)
+  .attr('r', 20)
+  .attr('class', 'enemy');  
 }
