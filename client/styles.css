@@ -10,3 +10,15 @@ Feel free to use it if you like. */
   -webkit-animation: whirl 1s linear infinite;
   -webkit-transform-origin: 50% 50%;
 }
+
+
+body {
+  color: white;
+  font-family: 'Papyrus';
+  font-weight: bolder;
+  font-size: 25px;
+  background-image: url('dungeon.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat; 
+}
+

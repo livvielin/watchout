@@ -1,12 +1,11 @@
 // start slingin' some d3 here.
 
-var width = 500;
-var height = 500;
+var width = window.innerWidth-100;
+var height = window.innerHeight-100;
 
 var board = d3.select('body').append('svg')
   .attr('width', width)
-  .attr('height', height)
-  .style('border', '5px ridge red');
+  .attr('height', height);
 
 
 var numEnemies = 12;
@@ -15,9 +14,9 @@ var enemyData = [];
 //making data set
 for (var i = 0; i < numEnemies; i ++) {
   enemyData.push({
-    'xlink:href': 'shuriken.jpeg',
-    'height': '50px',
-    'width':'50px',
+    'xlink:href': 'shuriken2.jpeg',
+    'height': '25px',
+    'width':'25px',
     'x': Math.random() * width,
     'y': Math.random() * height
   });  
@@ -28,7 +27,7 @@ var enemies = board.selectAll('image')
   .data(enemyData)
   .enter()
   .append('image')
-  .attr('xlink:href', 'shuriken.jpeg')
+  .attr('xlink:href', 'shuriken2.jpeg')
   .attr('class', 'enemy');
 
 //using data to assign attributes to elements
