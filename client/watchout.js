@@ -68,8 +68,8 @@ setInterval( function() {reposition(enemies);}, 1000);
 
 var checkCollision = function(enemy) {
   var radiusSum = parseFloat(enemy.attr('height'))/2 + parseFloat(ninja.attr('height'))/2;
-  var xDiff = parseFloat(enemy.attr('x'))/2 - parseFloat(ninja.attr('x'))/2;
-  var yDiff = parseFloat(enemy.attr('y'))/2 - parseFloat(ninja.attr('y'))/2;
+  var xDiff = parseFloat(enemy.attr('x')) - parseFloat(ninja.attr('x'));
+  var yDiff = parseFloat(enemy.attr('y')) - parseFloat(ninja.attr('y'));
   var distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
 
   return distance < radiusSum;
@@ -85,7 +85,7 @@ setInterval( function() {
       d3.select('.numCollisions').text(numCollisions);
     }
   });
-}, 500);
+}, 250);
 
 var score = 0;
 var highScore = 0;
