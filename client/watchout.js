@@ -1,8 +1,11 @@
 // start slingin' some d3 here.
 
+var width = 500;
+var height = 500;
+
 var board = d3.select('body').append('svg')
-  .attr('width', 500)
-  .attr('height', 500)
+  .attr('width', width)
+  .attr('height', height)
   .style('border', '5px ridge red');
 
 
@@ -15,8 +18,8 @@ for (var i = 0; i < numEnemies; i ++) {
     'xlink:href': 'shuriken.jpeg',
     'height': '50px',
     'width':'50px',
-    'x': Math.random() * 500,
-    'y': Math.random() * 500
+    'x': Math.random() * width,
+    'y': Math.random() * height
   });  
 }
 
@@ -40,8 +43,8 @@ var ninja = board.append('image')
   .attr('xlink:href', 'ninja.jpeg')
   .attr('height', '75px')
   .attr('width','75px')
-  .attr('x', 250)
-  .attr('y', 250)
+  .attr('x', width/2)
+  .attr('y', height/2)
   .attr('class', 'player')
   .call(d3.behavior.drag().on('drag', move));
 
@@ -56,15 +59,15 @@ function move() {
 function reposition(enemy) {
   enemy.transition()
   .duration(1000)
-  .attr('x', function(d) { return Math.random()*500; })
-  .attr('y', function(d) { return Math.random()*500; })
+  .attr('x', function(d) { return Math.random()*width; })
+  .attr('y', function(d) { return Math.random()*height; })
   .attr('width', function(d) { return d.width; })
   .attr('height', function(d) { return d.height; });
 }
 
 setInterval( function() {reposition(enemies);}, 1000);
 
-var checkCollision = function(enemy, ninja) {
+var checkCollision = function(enemy) {
   var radiusSum = parseFloat(enemy.attr('height'))/2 + parseFloat(ninja.attr('height'))/2;
   var xDiff = parseFloat(enemy.attr('x'))/2 - parseFloat(ninja.attr('x'))/2;
   var yDiff = parseFloat(enemy.attr('y'))/2 - parseFloat(ninja.attr('y'))/2;
@@ -74,9 +77,14 @@ var checkCollision = function(enemy, ninja) {
 
 };
 
-setInterval( function() { if (checkCollision(enemies, ninja)){
-  console.log('hi');
-}}, 100);
+setInterval( function() { 
+  enemies.each(function(d){
+    if (checkCollision(d3.select(this))) {
+      console.log('got hit!');
+    }
+  });
+  
+}, 500);
 
 
 
