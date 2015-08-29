@@ -9,7 +9,7 @@ var board = d3.select('body').append('svg')
   .style('border', '5px ridge red');
 
 
-var numEnemies = 2;
+var numEnemies = 12;
 var enemyData = [];
 
 //making data set
@@ -21,7 +21,7 @@ for (var i = 0; i < numEnemies; i ++) {
     'x': Math.random() * width,
     'y': Math.random() * height
   });  
-}
+} 
 
 //taking data and binding to image elements
 var enemies = board.selectAll('image')
@@ -77,14 +77,33 @@ var checkCollision = function(enemy) {
 
 };
 
+var numCollisions = 0;
+
 setInterval( function() { 
   enemies.each(function(d){
     if (checkCollision(d3.select(this))) {
-      console.log('got hit!');
+      numCollisions++;
+      d3.select('.numCollisions').text(numCollisions);
     }
   });
-  
 }, 500);
+
+var score = 0;
+var highScore = 0;
+
+setInterval( function() {
+  if(numCollisions >= 20) {
+    numCollisions = 0;
+    d3.select('.numCollisions').text(numCollisions);
+    if(score > highScore) {
+      highScore = score;
+      d3.select('.highScore').text(highScore);
+    }
+    score = 0;
+  }
+  score++;
+  d3.select('.score').text(score);
+}, 100);
 
 
 
